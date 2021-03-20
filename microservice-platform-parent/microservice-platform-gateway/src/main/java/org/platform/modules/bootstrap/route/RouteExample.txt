@@ -1,0 +1,26 @@
+[
+    {
+        "enable":true,
+        "id":"baidu",
+        "path":"/baidu/**",
+        "retryable":false,
+        "stripPrefix":true,
+        "url":"http://www.baidu.com"
+    },
+    {
+        "enable":true,
+        "id":"163",
+        "path":"/163/**",
+        "retryable":false,
+        "stripPrefix":true,
+        "url":"https://www.163.com"
+    },
+    {
+        "enable":true,
+        "id":"microservice-platform-nacos-provider1",
+        "serviceId":"microservice-platform-nacos-provider1",
+        "path":"/microservice-platform-nacos-provider1/**",
+        "retryable":false,
+        "stripPrefix":true
+    }
+]

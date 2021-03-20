@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>microservice-platform-nacos-consumer1</artifactId>
+    <packaging>jar</packaging>
+
+    <name>microservice-platform-nacos-consumer1</name>
+    <url>http://maven.apache.org</url>
+
+    <parent>
+        <groupId>org.platform</groupId>
+        <artifactId>microservice-platform-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <proguard.obfuscate>true</proguard.obfuscate>
+        <proguard.version>6.2.0</proguard.version>
+        <proguard.maven.plugin.version>2.2.0</proguard.maven.plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>jdk.tools</groupId>
+            <artifactId>jdk.tools</artifactId>
+            <scope>system</scope>
+            <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+        </dependency>
+
+        <!-- Spring Boot依赖包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-loader</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Loader依赖包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-loader</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Feign依赖包 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- Nacos依赖包 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!--Commons IO依赖包 -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <!--Commons Lang依赖包 -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+
+        <!-- JDOM依赖包 -->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+        </dependency>
+
+        <!-- Slf4j依赖包 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+
+        <!--Logback依赖包 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-spring</artifactId>
+        </dependency>
+
+        <!-- DRUID依赖包 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
+        <!-- Sqlite依赖包 -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+        </dependency>
+
+        <!-- Mybatis依赖包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>microservice-platform-nacos-consumer1</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <defaultGoal>install</defaultGoal>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.db</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
+        <!-- 定义filter即该资源中的值将会用来替换同名属性 设置filtering为true的资源中的属性 -->
+        <filters>
+            <filter>src/main/resources/application-${target-env}.properties</filter>
+        </filters>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>maven</groupId>
+                <artifactId>maven-test-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.platform.modules.bootstrap.BootstrapApplication</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <useUniqueVersions>false</useUniqueVersions>
+                        </manifest>
+                    </archive>
+                    <manifestEntries>
+                        <Class-Path>.</Class-Path>
+                    </manifestEntries>
+                </configuration>
+            </plugin>
+
+            <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.platform.modules.bootstrap.BootstrapApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                     </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
+
+            <!-- ProGuard混淆插件-->
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>${proguard.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <proguardVersion>${proguard.version}</proguardVersion>
+                    <injar>${project.build.finalName}.jar</injar>
+                    <outjar>${project.build.finalName}.jar</outjar>
+                    <!-- 是否将生成的PG文件安装部署 -->
+                    <!--
+                    <attach>true</attach>
+                    -->
+                    <!-- 是否混淆 -->
+                    <obfuscate>${proguard.obfuscate}</obfuscate>
+                    <!-- 指定生成文件分类 -->
+                    <attachArtifactClassifier>pg</attachArtifactClassifier>
+                    <options>
+                        <option>-dontnote</option>
+                        <!-- JDK目标版本1.8-->
+                        <option>-target 1.8</option>
+                        <!-- 不做收缩（删除注释、未被引用代码）-->
+                        <option>-dontshrink</option>
+                        <!-- 不做优化（变更代码实现逻辑）-->
+                        <option>-dontoptimize</option>
+                        <!-- 忽略所有告警 -->
+                        <!-- this option ignore warnings such as duplicate class definitions and classes in incorrectly named files-->
+                        <option>-ignorewarnings</option>
+                        <!--- 混淆类名之后，对使用Class.forName('className')之类的地方进行相应替代 -->
+                        <!-- this option will replace all strings in reflections method invocations with new class names.
+                             For example, invokes Class.forName('className')-->
+                        <option>-adaptclassstrings</option>
+                        <!--
+                        <option>-adaptresourcefilecontents **.properties,META-INF/MANIFEST.MF,META-INF/spring.*</option>
+                        -->
+                        <!-- 不跳过非公用类文件及成员 -->
+                        <option>-dontskipnonpubliclibraryclasses</option>
+                        <option>-dontskipnonpubliclibraryclassmembers</option>
+                        <!-- 优化时允许访问并修改有修饰符的类和类的成员 -->
+                        <option>-allowaccessmodification</option>
+                        <!-- 确定统一的混淆类的成员名称来增加混淆 -->
+                        <option>-useuniqueclassmembernames</option>
+                        <option>-keepdirectories</option>
+
+                        <!--以下配置第三方包不参与混淆 -->
+                        <option>-dontwarn org.springframework.**</option>
+                        <option>-dontwarn org.platform.modules.abstr.**</option>
+                        <option>-dontwarn org.platform.utils.exception.**</option>
+
+                        <option>-keep class org.apache.** {*;}</option>
+                        <option>-keep interface org.apache.** {*;}</option>
+                        <option>-keep class org.springframework.** {*;}</option>
+                        <option>-keep interface org.springframework.** {*;}</option>
+                        <option>-keep class org.platform.modules.abstr.** {*;}</option>
+                        <option>-keep class org.platform.modules.bootstrap.** {*;}</option>
+                        <option>-keep class org.platform.modules.**.entity.** {*;}</option>
+                        <option>-keep class org.platform.modules.**.dao.** {*;}</option>
+                        <option>-keep class org.platform.modules.**.controller.** {*;}</option>
+
+                        <option>-keepclassmembers class org.neo4j.** { *;}</option>
+                        <option>-keepclassmembers class org.apache.** { *;}</option>
+                        <option>-keepclassmembers class org.springframework.** { *;}</option>
+                        <!-- this option will save all original defined annotations in all class in all packages.-->
+                        <option>-keepclassmembers class * {
+                            @org.springframework.beans.factory.annotation.Autowired *;
+                            @org.springframework.beans.factory.annotation.Value *;
+                            }
+                        </option>
+                        <!-- 不混淆所有的set/get方法，如果项目中使用的部分第三方框架（例如Shiro）会用到大量的set/get映射-->
+                        <option>-keepclassmembers public class * {void set*(***);*** get*();}</option>
+
+                        <!-- 不混淆所有包名-->
+                        <!--
+                        <option>-keeppackagenames</option>
+                        -->
+                        <!-- this option will save all original names in interfaces (without obfuscate).-->
+                        <!--
+                        <option>-keepnames interface **</option>
+                        <option>-keepparameternames</option>
+                        <option>-keepattributes **</option>
+                        -->
+                        <!-- 不混淆所有特殊的类-->
+                        <!-- this option will save all original annotations and etc. Otherwise all we be removed from files.-->
+                        <option>-keepattributes
+                            Exceptions,
+                            InnerClasses,
+                            Signature,
+                            Deprecated,
+                            SourceFile,
+                            LineNumberTable,
+                            LocalVariableTable,
+                            *Annotation*,
+                            EnclosingMethod
+                        </option>
+                    </options>
+                    <injarNotExistsSkip>true</injarNotExistsSkip>
+                    <libs>
+                        <lib>${JAVA_HOME}/jre/lib/rt.jar</lib>
+                        <lib>${JAVA_HOME}/jre/lib/jce.jar</lib>
+                        <!--put here your libraries if required-->
+                        <!--<lib>${java.home}/lib/rt.jar</lib>-->
+                    </libs>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.proguard</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>${proguard.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <fork>true</fork>
+                    <mainClass>org.platform.modules.bootstrap.BootstrapApplication</mainClass>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

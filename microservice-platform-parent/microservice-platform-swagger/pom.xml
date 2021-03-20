@@ -1,0 +1,272 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>microservice-platform-swagger</artifactId>
+	<packaging>jar</packaging>
+
+	<name>microservice-platform-swagger</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>org.platform</groupId>
+		<artifactId>microservice-platform-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>jdk.tools</groupId>
+			<artifactId>jdk.tools</artifactId>
+			<scope>system</scope>
+			<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+		</dependency>
+		
+		<!-- Spring Boot依赖包 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<!-- Slf4j依赖包 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		
+		<!--Logback依赖包 -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+		</dependency>
+		
+		<!-- Swagger依赖包 -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.github.xiaoymin</groupId>
+		    <artifactId>swagger-bootstrap-ui</artifactId>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<finalName>microservice-platform-swagger</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<defaultGoal>install</defaultGoal>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>maven</groupId>
+				<artifactId>maven-test-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/libs
+                            </outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Jar Maven Plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>org.platform.modules.bootstrap.BootstrapApplication</mainClass>
+							<addClasspath>true</addClasspath>
+					        <classpathPrefix>libs/</classpathPrefix>
+					        <useUniqueVersions>false</useUniqueVersions>
+						</manifest>
+					</archive>
+					<manifestEntries>
+						<Class-Path>.</Class-Path>
+					</manifestEntries>
+				</configuration>
+			</plugin>
+	        <!-- ProGuard混淆插件-->
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.14</version>
+                <executions>
+                    <execution>
+                        <!-- 混淆时刻，这里是打包的时候混淆-->
+                        <phase>package</phase>
+                        <goals>
+                            <!-- 使用插件的混淆功能-->
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 是否将生成的PG文件安装部署-->
+                    <attach>true</attach>
+                    <!-- 是否混淆-->
+                    <obfuscate>true</obfuscate>
+                    <!-- 指定生成文件分类 -->
+                    <attachArtifactClassifier>pg</attachArtifactClassifier>
+                    <options>
+                        <option>-dontnote</option>
+                        <!-- JDK目标版本1.8-->
+                        <option>-target 1.8</option>
+                        <!-- 不做收缩（删除注释、未被引用代码）-->
+                        <option>-dontshrink</option>
+                        <!-- 不做优化（变更代码实现逻辑）-->
+                        <option>-dontoptimize</option>
+                        <!--忽略所有告警-->
+                        <option>-ignorewarnings</option>
+                        <option>-adaptclassstrings</option>
+                        <!-- 不跳过非公用类文件及成员-->
+                        <option>-dontskipnonpubliclibraryclasses</option>
+                        <option>-dontskipnonpubliclibraryclassmembers</option>
+                        <!-- 优化时允许访问并修改有修饰符的类和类的成员 -->
+                        <option>-allowaccessmodification</option>
+                        <!-- 确定统一的混淆类的成员名称来增加混淆-->
+                        <option>-useuniqueclassmembernames</option>
+                        <option>-keepdirectories</option>
+                        <!-- 不混淆所有包名，测试混淆后WEB项目问题实在太多，毕竟Spring配置中有大量固定写法的包名-->
+                        <!--  
+                        <option>-keeppackagenames</option>
+                        -->
+						<option>-keepattributes **</option>
+                        <!-- 不混淆所有特殊的类-->
+                        <!--  
+                        <option>-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,LocalVariable*Table,*Annotation*,Synthetic,EnclosingMethod</option>
+                        -->
+                        <!-- 不混淆所有的set/get方法，如果项目中使用的部分第三方框架（例如Shiro）会用到大量的set/get映射-->
+                        <option>-keepclassmembers public class * {void set*(***);*** get*();}</option>
+                        
+                        <!--以下配置第三方包不参与混淆-->
+                 		<option>-keep class org.springframework.** {*;}</option>
+                 		<option>-keepclassmembers class org.springframework.** { *;}</option>
+                 		<option>-dontwarn org.springframework.**</option>
+                        
+                        <option>-dontwarn org.platform.modules.abstr.**</option>
+                        <option>-dontwarn org.platform.utils.exception.**</option>
+                        
+						<option>-keep class org.platform.modules.abstr.** {*;}</option>
+						<option>-keep class org.platform.modules.bootstrap.** {*;}</option>
+                        <!-- 不混淆entity包中的所有类以及类的属性及方法，混淆了会导致ORM框架及前端无法识别-->
+                        <option>-keep class org.platform.modules.**.entity.** {*;}</option>
+                        <option>-keep class org.platform.modules.**.dao.** {*;}</option>
+                        <!-- 以下两个包因为大部分是Spring管理的Bean，不对包的类名进行混淆，但对类中的属性和方法混淆-->
+                        <option>-keep class org.platform.modules.**.controller.**</option>
+                    	<option>-keepclassmembers class * {
+                                @org.springframework.beans.factory.annotation.Autowired *;
+                                @org.springframework.beans.factory.annotation.Value *;
+                            }
+                        </option>
+                    </options>
+                    <!-- 加载文件的过滤器，就是你的工程目录了-->
+                    <!--  
+                    <inFilter>org/platform/**</inFilter>
+                    -->
+                    <!-- 对什么东西进行加载，这里仅有classes成功，毕竟你也不可能对配置文件及JSP混淆吧-->
+                    <!--  
+                    <injar>classes</injar>
+                    -->
+                    <injar>${project.build.finalName}.jar</injar>
+                    <outjar>${project.build.finalName}-pg.jar</outjar>
+                    <!-- 添加依赖，这里你可以按你的需要修改，这里测试只需要一个JRE的Runtime包就行了 -->
+                    <libs>                           
+	                    <lib>${JAVA_HOME}/jre/lib/rt.jar</lib>
+	                    <!--  
+	                    <lib>${JAVA_HOME}/jre/lib/jce.jar</lib>
+	                	-->
+	                </libs>  
+	                <addMavenDescriptor>false</addMavenDescriptor>
+                    <!-- 输出目录-->
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+                </configuration>
+                <dependencies>
+                	<dependency>
+					    <groupId>net.sf.proguard</groupId>
+					    <artifactId>proguard-base</artifactId>
+					    <version>6.0.3</version>
+					</dependency>
+                </dependencies>
+            </plugin>
+		</plugins>
+	</build>
+
+</project>

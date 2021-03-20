@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.platform</groupId>
+	<artifactId>microservice-platform-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>microservice-platform-parent</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.6.RELEASE</version>
+		<relativePath/>
+	</parent>
+
+	<modules>
+		<module>microservice-platform-entity</module>
+		<module>microservice-platform-swagger</module>
+		<module>microservice-platform-gateway</module>
+		<module>microservice-platform-nacos-provider1</module>
+		<module>microservice-platform-nacos-consumer1</module>
+    </modules>
+
+	<profiles>
+		<!-- 开发环境 -->
+		<profile>
+			<id>development</id>
+			<properties>
+				<target-env>development</target-env>
+				<repo-host>192.168.0.1:8081</repo-host>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<target-env>test</target-env>
+				<repo-host>10.20.100.1:8081</repo-host>
+			</properties>
+		</profile>
+		<!-- 生产环境 -->
+		<profile>
+			<id>production</id>
+			<properties>
+				<target-env>production</target-env>
+				<repo-host>10.20.100.1:8081</repo-host>
+			</properties>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>public repository</name>
+			<url>http://101.201.255.189:10080/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
+		<repository>
+            <id>maven-aliyun</id>
+            <name>aliyun repository</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
+        </repository>
+
+		<!--
+		<repository>
+			<id>maven-restlet</id>
+			<name>Public Online Restlet Repository</name>
+			<url>http://maven.restlet.org</url>
+		</repository>
+
+		<repository>
+			<id>maven-repository</id>
+			<name>Public Maven Repository</name>
+			<url>https://mvnrepository.com</url>
+		</repository>
+
+		<repository>
+			<id>spring-milestone</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+
+		<repository>
+			<id>neo4j-release-repository</id>
+			<name>Neo4j Maven 2 release repository</name>
+			<url>http://m2.neo4j.org/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		-->
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestone</id>
+			<url>https://repo.spring.io/libs-release</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.boot.version>2.2.13.RELEASE</spring.boot.version>
+		<spring.cloud.feign.version>2.2.7.RELEASE</spring.cloud.feign.version>
+		<spring.cloud.ribbon.version>2.2.7.RELEASE</spring.cloud.ribbon.version>
+		<spring.cloud.zuul.version>2.2.7.RELEASE</spring.cloud.zuul.version>
+		<spring.cloud.alibaba.nacos.version>2.2.5.RELEASE</spring.cloud.alibaba.nacos.version>
+		<druid.version>1.1.20</druid.version>
+		<commons.io.version>2.6</commons.io.version>
+		<commons.lang.version>2.6</commons.lang.version>
+		<commons.fileupload.version>1.3.3</commons.fileupload.version>
+		<jackson.core.version>2.10.3</jackson.core.version>
+		<dom4j.version>1.6.1</dom4j.version>
+		<jdom2.version>2.0.6</jdom2.version>
+		<cglib.version>3.2.5</cglib.version>
+		<httpclient.version>4.5.10</httpclient.version>
+		<persistence.version>1.0</persistence.version>
+		<fastjson.version>1.2.22</fastjson.version>
+		<gson.version>2.8.6</gson.version>
+		<guava.version>28.2-jre</guava.version>
+		<jsoup.version>1.13.1</jsoup.version>
+		<slf4j.version>1.7.30</slf4j.version>
+		<logback.version>1.2.3</logback.version>
+		<mybatis.version>3.4.6</mybatis.version>
+		<mybatis.spring.version>1.3.2</mybatis.spring.version>
+		<mybatis.generator.version>1.4.0</mybatis.generator.version>
+		<mysql.connector.version>8.0.18</mysql.connector.version>
+		<aspectj.version>1.8.10</aspectj.version>
+		<jedis.version>3.2.0</jedis.version>
+		<jwt.version>0.10.7</jwt.version>
+		<poi.version>4.1.2</poi.version>
+		<easyexcel.version>2.2.3</easyexcel.version>
+		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+		<thymeleaf.spring5.version>3.0.11.RELEASE</thymeleaf.spring5.version>
+		<thymeleaf.layout.version>2.3.0</thymeleaf.layout.version>
+		<jgrapht.version>1.4.0</jgrapht.version>
+		<swagger.version>2.7.0</swagger.version>
+		<swagger.ui.version>1.9.6</swagger.ui.version>
+		<pagehelper.version>5.1.10</pagehelper.version>
+		<pinyin4j.version>2.5.1</pinyin4j.version>
+		<neo4j.version>3.5.22</neo4j.version>
+		<neo4j.graph.version>3.5.22</neo4j.graph.version>
+		<neo4j.driver.version>4.1.1</neo4j.driver.version>
+		<neo4j.server.version>3.5.22</neo4j.server.version>
+		<netty.version>4.1.56.Final</netty.version>
+		<netty.socketio.version>1.7.18</netty.socketio.version>
+		<socketio.client.version>2.0.0</socketio.client.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>jdk.tools</groupId>
+				<artifactId>jdk.tools</artifactId>
+				<version>1.8</version>
+				<scope>system</scope>
+				<systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
+			</dependency>
+
+			<!-- Spring Boot依赖包 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+					</exclusion>
+				</exclusions>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-aop</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-loader</artifactId>
+				<version>${spring.boot.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-jdbc</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<!-- Websocket依赖包 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-websocket</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<!-- Neo4j依赖包 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-neo4j</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<!-- Feign依赖包 -->
+			<dependency>
+			    <groupId>org.springframework.cloud</groupId>
+			    <artifactId>spring-cloud-starter-openfeign</artifactId>
+			    <version>${spring.cloud.feign.version}</version>
+			</dependency>
+			
+			<!-- Ribbon依赖包 -->
+			<dependency>
+			    <groupId>org.springframework.cloud</groupId>
+			    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			    <version>${spring.cloud.ribbon.version}</version>
+			</dependency>
+
+			<!-- Zuul依赖包 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+				<version>${spring.cloud.zuul.version}</version><!--$NO-MVN-MAN-VER$-->
+				<!--
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.netflix.servo</groupId>
+                        <artifactId>servo-core</artifactId>
+                    </exclusion>
+                </exclusions>
+                -->
+			</dependency>
+
+			<!-- Nacos依赖包 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+				<version>${spring.cloud.alibaba.nacos.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+				<version>${spring.cloud.alibaba.nacos.version}</version>
+			</dependency>
+
+			<!--Commons IO依赖包 -->
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons.io.version}</version>
+			</dependency>
+
+			<!--Commons Lang依赖包 -->
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons.lang.version}</version>
+			</dependency>
+
+			<!-- Commons FileUpload依赖包 -->
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons.fileupload.version}</version>
+			</dependency>
+
+			<!-- Dom4j依赖包 -->
+			<dependency>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${dom4j.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<!-- JDOM依赖包 -->
+			<dependency>
+				<groupId>org.jdom</groupId>
+				<artifactId>jdom2</artifactId>
+				<version>${jdom2.version}</version>
+			</dependency>
+
+			<!-- CGLIB依赖包 -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+
+			<!-- Httpclient依赖包 -->
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${httpclient.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpmime</artifactId>
+				<version>${httpclient.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<!-- Jackon依赖包 -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.core.version}</version>
+			</dependency>
+
+			<!-- Gson依赖包 -->
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${gson.version}</version>
+			</dependency>
+
+			<!-- FastJSON依赖包 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<!-- Javax Persistence依赖包 -->
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>${persistence.version}</version>
+			</dependency>
+
+			<!-- Guava依赖包 -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<!-- JSoup依赖包 -->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>${jsoup.version}</version>
+			</dependency>
+
+			<!-- Slf4j依赖包 -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!--Logback依赖包 -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-access</artifactId>
+				<version>${logback.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<dependency>
+				<groupId>org.logback-extensions</groupId>
+				<artifactId>logback-ext-spring</artifactId>
+				<version>0.1.4</version>
+			</dependency>
+
+			<!-- MySQL依赖包-->
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.wix</groupId>
+				<artifactId>wix-embedded-mysql</artifactId>
+				<version>[4.5.0,)</version>
+			</dependency>
+
+			<!-- DRUID依赖包 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+
+			<!-- Mybatis依赖包 -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis.spring.version}</version>
+			</dependency>
+
+			<!-- Aspectj依赖包 -->
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectj.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectj.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<dependency>
+				<groupId>aopalliance</groupId>
+				<artifactId>aopalliance</artifactId>
+				<version>1.0</version>
+			</dependency>
+
+			<!-- Javassist客户端库 -->
+			<dependency>
+			    <groupId>org.javassist</groupId>
+			    <artifactId>javassist</artifactId>
+			    <version>3.25.0-GA</version>
+			</dependency>
+
+			<!-- Redis客户端库 -->
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${jedis.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<!-- ReactorCore依赖包 -->
+			<dependency>
+				<groupId>io.projectreactor</groupId>
+				<artifactId>reactor-core</artifactId>
+				<version>3.2.3.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<!-- Bouncycastle依赖包 -->
+			<dependency>
+				<groupId>bouncycastle</groupId>
+				<artifactId>bcprov-jdk16</artifactId>
+				<version>140</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-ext-jdk16</artifactId>
+				<version>1.46</version>
+			</dependency>
+
+			<!-- Sqlite依赖包 -->
+			<dependency>
+				<groupId>org.xerial</groupId>
+				<artifactId>sqlite-jdbc</artifactId>
+				<version>3.28.0</version><!--$NO-MVN-MAN-VER$ -->
+			</dependency>
+
+			<!-- JWT依赖包 -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>${jwt.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>${jwt.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId>
+				<version>${jwt.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>3.9.0</version>
+			</dependency>
+
+			<!-- POI依赖包 -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml-schemas</artifactId>
+				<version>${poi.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>xerces</groupId>
+				<artifactId>xercesImpl</artifactId>
+				<version>2.12.0</version>
+			</dependency>
+			
+			<!-- EASYEXCEL依赖包 -->
+			<dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>easyexcel</artifactId>
+			    <version>${easyexcel.version}</version>
+			</dependency>
+
+			<!-- Thymeleaf依赖包-->
+			<dependency>
+				<groupId>org.thymeleaf</groupId>
+				<artifactId>thymeleaf</artifactId>
+				<version>${thymeleaf.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.thymeleaf</groupId>
+				<artifactId>thymeleaf-spring5</artifactId>
+				<version>${thymeleaf.spring5.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>nz.net.ultraq.thymeleaf</groupId>
+				<artifactId>thymeleaf-layout-dialect</artifactId>
+				<version>${thymeleaf.layout.version}</version>
+			</dependency>
+			
+			<!-- JGraphT依赖包 -->
+			<dependency>
+			    <groupId>org.jgrapht</groupId>
+			    <artifactId>jgrapht-core</artifactId>
+			    <version>${jgrapht.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.jgrapht</groupId>
+			    <artifactId>jgrapht-ext</artifactId>
+			    <version>${jgrapht.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.jgrapht</groupId>
+			    <artifactId>jgrapht-io</artifactId>
+			    <version>${jgrapht.version}</version>
+			</dependency>
+			
+			<!-- Swagger依赖包 -->
+			<dependency>
+			    <groupId>io.springfox</groupId>
+			    <artifactId>springfox-swagger2</artifactId>
+			    <version>${swagger.version}</version>
+			    <!--  
+			    <exclusions>
+			    	<exclusion>
+					    <groupId>com.fasterxml</groupId>
+					    <artifactId>classmate</artifactId>
+			    	</exclusion>
+			    </exclusions>
+			    -->
+			</dependency>
+			
+			<dependency>
+			    <groupId>io.springfox</groupId>
+			    <artifactId>springfox-swagger-ui</artifactId>
+			    <version>${swagger.version}</version>
+			</dependency>
+			
+			<!--  
+			<dependency>
+			    <groupId>com.fasterxml</groupId>
+			    <artifactId>classmate</artifactId>
+			    <version>1.3.3</version>
+			</dependency>
+			-->
+			
+			<dependency>
+			    <groupId>com.github.xiaoymin</groupId>
+			    <artifactId>swagger-bootstrap-ui</artifactId>
+			    <version>${swagger.ui.version}</version>
+			</dependency>
+			
+			<!-- PageHelper依赖包 -->
+		  	<dependency>
+			  	<groupId>com.github.pagehelper</groupId>
+			  	<artifactId>pagehelper</artifactId>
+			  	<version>${pagehelper.version}</version>
+		  	</dependency>
+		  	
+		  	<!-- Pinyin4j依赖包 -->
+		  	<dependency>
+				<groupId>com.belerweb</groupId>
+				<artifactId>pinyin4j</artifactId>
+				<version>${pinyin4j.version}</version>
+			</dependency>
+
+			<!-- Neo4j依赖包 -->
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j</artifactId>
+				<version>${neo4j.version}</version>
+			</dependency>
+
+			<!-- Neo4jGraph依赖包 -->
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j-graph-algo</artifactId>
+				<version>${neo4j.graph.version}</version>
+			</dependency>
+
+			<!-- Neo4jDriver依赖包 -->
+			<dependency>
+				<groupId>org.neo4j.driver</groupId>
+				<artifactId>neo4j-java-driver</artifactId>
+				<version>${neo4j.driver.version}</version>
+			</dependency>
+
+			<!-- Neo4jServer依赖包 -->
+			<dependency>
+				<groupId>org.neo4j.app</groupId>
+				<artifactId>neo4j-server</artifactId>
+				<version>${neo4j.server.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.neo4j.app</groupId>
+				<artifactId>neo4j-server</artifactId>
+				<classifier>static-web</classifier>
+				<version>${neo4j.server.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>server-api</artifactId>
+				<version>${neo4j.server.version}</version>
+			</dependency>
+
+			<!-- Netty依赖包 -->
+			<dependency>
+				<groupId>io.netty</groupId>
+				<artifactId>netty-all</artifactId>
+				<version>${netty.version}</version>
+			</dependency>
+
+			<!-- NettySocketio依赖包 -->
+			<dependency>
+				<groupId>com.corundumstudio.socketio</groupId>
+				<artifactId>netty-socketio</artifactId>
+				<version>${netty.socketio.version}</version>
+			</dependency>
+
+			<!-- Socketio依赖包 -->
+			<dependency>
+				<groupId>io.socket</groupId>
+				<artifactId>socket.io-client</artifactId>
+				<version>${socketio.client.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+	</dependencies>
+
+</project>
