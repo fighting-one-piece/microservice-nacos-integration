@@ -47,7 +47,7 @@ public class NacosServerConfiguration {
 
                 @Override
                 public void receiveConfigInfo(String configInfo) {
-                    LOG.info("Nacos Config Update!");
+                    LOG.info("Nacos Route Config Info Update!");
                     //切忌！！！不需要自己去刷新
                     RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(zuulRouteLocator);
                     applicationEventPublisher.publishEvent(routesRefreshedEvent);

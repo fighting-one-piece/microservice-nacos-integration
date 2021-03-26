@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    gateway:
+      actuator:
+        verbose:
+          enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      default-filters:
+#        - PrefixPath=/microservice-platform-nacos-consumer1/**
+        - AddResponseHeader=X-Response-Default-Consumer1, Default-Consumer2
+      routes:
+        - id: microservice-platform-nacos-consumer1
+          uri: lb://microservice-platform-nacos-consumer1  #uri以lb://开头（lb代表从注册中心获取服务），后面接的就是你需要转发到的服务名称
+          predicates:
+            - Path=/microservice-platform-nacos-consumer1/**
+          filters:
+            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: consumer1Hystrix
+                fallbackUri: forward:/microservice-platform-nacos-consumer1/fallback
+        - id: microservice-platform-nacos-consumer2
+          uri: lb://microservice-platform-nacos-consumer2
+          predicates:
+            - Path=/microservice-platform-nacos-consumer2/**
+          filters:
+            - StripPrefix=1

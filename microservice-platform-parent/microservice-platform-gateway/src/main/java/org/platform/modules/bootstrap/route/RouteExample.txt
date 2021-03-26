@@ -1,26 +1,33 @@
-[
-    {
-        "enable":true,
-        "id":"baidu",
-        "path":"/baidu/**",
-        "retryable":false,
-        "stripPrefix":true,
-        "url":"http://www.baidu.com"
-    },
-    {
-        "enable":true,
-        "id":"163",
-        "path":"/163/**",
-        "retryable":false,
-        "stripPrefix":true,
-        "url":"https://www.163.com"
-    },
-    {
-        "enable":true,
-        "id":"microservice-platform-nacos-provider1",
-        "serviceId":"microservice-platform-nacos-provider1",
-        "path":"/microservice-platform-nacos-provider1/**",
-        "retryable":false,
-        "stripPrefix":true
-    }
-]
+[{
+    "id": "microservice-platform-nacos-provider3",
+    "order": 100,
+    "uri": "lb://microservice-platform-nacos-provider1",
+    "predicates": [{
+        "name": "Path",
+        "args": {
+            "pattern": "/microservice-platform-nacos-provider3/**"
+        }
+    }],
+    "filters": [{
+        "name": "StripPrefix",
+        "args": {
+            "parts": "1"
+        }
+    }]
+},{
+    "id": "microservice-platform-nacos-consumer3",
+    "order": 101,
+    "uri": "lb://microservice-platform-nacos-consumer1",
+    "predicates": [{
+        "name": "Path",
+        "args": {
+            "pattern": "/microservice-platform-nacos-consumer3/**"
+        }
+    }],
+    "filters": [{
+        "name": "StripPrefix",
+        "args": {
+            "parts": "1"
+        }
+    }]
+}]

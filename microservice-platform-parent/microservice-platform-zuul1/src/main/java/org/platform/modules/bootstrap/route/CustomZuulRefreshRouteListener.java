@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
-public class ZuulRefreshRouteListener implements ApplicationListener<ApplicationEvent> {
+public class CustomZuulRefreshRouteListener implements ApplicationListener<ApplicationEvent> {
 
     @Autowired
     private ZuulHandlerMapping zuulHandlerMapping = null;

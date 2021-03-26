@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>microservice-platform-gateway</artifactId>
+    <artifactId>microservice-platform-zuul1</artifactId>
     <packaging>jar</packaging>
 
-    <name>microservice-platform-gateway</name>
+    <name>microservice-platform-zuul1</name>
     <url>http://maven.apache.org</url>
 
     <parent>
@@ -69,8 +69,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring.boot.version}</version>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- Loader依赖包 -->
@@ -80,16 +79,10 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Gateway依赖包 -->
+        <!-- Zuul依赖包 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.projectreactor</groupId>
-                    <artifactId>reactor-core</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
 
         <!-- Feign依赖包 -->
@@ -102,12 +95,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
-
-        <!-- Hystrix依赖包 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
 
         <!-- Nacos依赖包 -->
@@ -222,16 +209,10 @@
             <artifactId>mybatis-spring</artifactId>
         </dependency>
 
-        <!-- ReactorCore依赖包 -->
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>
-        <finalName>microservice-platform-gateway</finalName>
+        <finalName>microservice-platform-zuul1</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
         <defaultGoal>install</defaultGoal>

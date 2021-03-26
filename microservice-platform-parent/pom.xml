@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.6.RELEASE</version>
+		<version>2.3.9.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -21,6 +21,7 @@
 		<module>microservice-platform-entity</module>
 		<module>microservice-platform-swagger</module>
 		<module>microservice-platform-gateway</module>
+		<module>microservice-platform-zuul1</module>
 		<module>microservice-platform-nacos-provider1</module>
 		<module>microservice-platform-nacos-consumer1</module>
     </modules>
@@ -123,10 +124,13 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.boot.version>2.2.13.RELEASE</spring.boot.version>
+		<spring.boot.version>2.3.9.RELEASE</spring.boot.version>
+		<spring.cloud.version>Hoxton.SR10</spring.cloud.version>
+		<spring.cloud.zuul.version>2.2.7.RELEASE</spring.cloud.zuul.version>
+		<spring.cloud.gateway.version>2.2.7.RELEASE</spring.cloud.gateway.version>
 		<spring.cloud.feign.version>2.2.7.RELEASE</spring.cloud.feign.version>
 		<spring.cloud.ribbon.version>2.2.7.RELEASE</spring.cloud.ribbon.version>
-		<spring.cloud.zuul.version>2.2.7.RELEASE</spring.cloud.zuul.version>
+		<spring.cloud.hystrix.version>2.2.7.RELEASE</spring.cloud.hystrix.version>
 		<spring.cloud.alibaba.nacos.version>2.2.5.RELEASE</spring.cloud.alibaba.nacos.version>
 		<druid.version>1.1.20</druid.version>
 		<commons.io.version>2.6</commons.io.version>
@@ -168,6 +172,7 @@
 		<netty.version>4.1.56.Final</netty.version>
 		<netty.socketio.version>1.7.18</netty.socketio.version>
 		<socketio.client.version>2.0.0</socketio.client.version>
+		<reactor.core.version>3.4.4</reactor.core.version>
 	</properties>
 
 	<dependencyManagement>
@@ -220,7 +225,19 @@
 
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-actuator</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-webflux</artifactId>
 				<version>${spring.boot.version}</version>
 			</dependency>
 
@@ -238,18 +255,32 @@
 				<version>${spring.boot.version}</version>
 			</dependency>
 
-			<!-- Feign依赖包 -->
+			<!-- Redis依赖包 -->
 			<dependency>
-			    <groupId>org.springframework.cloud</groupId>
-			    <artifactId>spring-cloud-starter-openfeign</artifactId>
-			    <version>${spring.cloud.feign.version}</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-redis</artifactId>
+				<version>${spring.boot.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-logging</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
-			
-			<!-- Ribbon依赖包 -->
+
 			<dependency>
-			    <groupId>org.springframework.cloud</groupId>
-			    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-			    <version>${spring.cloud.ribbon.version}</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<!-- SpringCloud依赖包 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring.cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 
 			<!-- Zuul依赖包 -->
@@ -265,6 +296,34 @@
                     </exclusion>
                 </exclusions>
                 -->
+			</dependency>
+
+			<!-- Gateway依赖包 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-gateway</artifactId>
+				<version>${spring.cloud.gateway.version}</version>
+			</dependency>
+
+			<!-- Feign依赖包 -->
+			<dependency>
+			    <groupId>org.springframework.cloud</groupId>
+			    <artifactId>spring-cloud-starter-openfeign</artifactId>
+			    <version>${spring.cloud.feign.version}</version>
+			</dependency>
+			
+			<!-- Ribbon依赖包 -->
+			<dependency>
+			    <groupId>org.springframework.cloud</groupId>
+			    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			    <version>${spring.cloud.ribbon.version}</version>
+			</dependency>
+
+			<!-- Hystrix依赖包 -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+				<version>${spring.cloud.hystrix.version}</version>
 			</dependency>
 
 			<!-- Nacos依赖包 -->
@@ -720,6 +779,13 @@
 				<groupId>io.socket</groupId>
 				<artifactId>socket.io-client</artifactId>
 				<version>${socketio.client.version}</version>
+			</dependency>
+
+			<!-- ReactorCore依赖包 -->
+			<dependency>
+				<groupId>io.projectreactor</groupId>
+				<artifactId>reactor-core</artifactId>
+				<version>${reactor.core.version}</version>
 			</dependency>
 
 		</dependencies>

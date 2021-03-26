@@ -27,7 +27,7 @@ public class CustomZuulConfiguration {
 
     @Bean
     public ApplicationListener<ApplicationEvent> zuulRefreshRouteListener() {
-        return new ZuulRefreshRouteListener();
+        return new CustomZuulRefreshRouteListener();
     }
 
 }
