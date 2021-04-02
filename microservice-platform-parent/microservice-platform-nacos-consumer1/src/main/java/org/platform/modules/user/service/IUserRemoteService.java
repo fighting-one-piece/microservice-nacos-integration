@@ -19,7 +19,7 @@ class UserRemoteServiceFallback implements IUserRemoteService {
 
 	@Override
 	public String readUser(String account, String password) {
-		return null;
+		return String.format("read user %s %s fallback", account, password);
 	}
 
 }
