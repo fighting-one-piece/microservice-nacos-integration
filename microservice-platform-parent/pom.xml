@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.9.RELEASE</version>
+		<version>2.2.13.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -24,6 +24,7 @@
 		<module>microservice-platform-zuul1</module>
 		<module>microservice-platform-nacos-provider1</module>
 		<module>microservice-platform-nacos-consumer1</module>
+		<module>microservice-platform-nacos-sentinel1</module>
     </modules>
 
 	<profiles>
@@ -83,7 +84,6 @@
             </snapshots>
         </repository>
 
-		<!--
 		<repository>
 			<id>maven-restlet</id>
 			<name>Public Online Restlet Repository</name>
@@ -112,6 +112,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		<!--
 		-->
 	</repositories>
 
@@ -124,14 +125,21 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.boot.version>2.3.9.RELEASE</spring.boot.version>
+		<spring.boot.version>2.2.13.RELEASE</spring.boot.version>
 		<spring.cloud.version>Hoxton.SR10</spring.cloud.version>
 		<spring.cloud.zuul.version>2.2.7.RELEASE</spring.cloud.zuul.version>
 		<spring.cloud.gateway.version>2.2.7.RELEASE</spring.cloud.gateway.version>
 		<spring.cloud.feign.version>2.2.7.RELEASE</spring.cloud.feign.version>
 		<spring.cloud.ribbon.version>2.2.7.RELEASE</spring.cloud.ribbon.version>
 		<spring.cloud.hystrix.version>2.2.7.RELEASE</spring.cloud.hystrix.version>
+		<spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
 		<spring.cloud.alibaba.nacos.version>2.2.5.RELEASE</spring.cloud.alibaba.nacos.version>
+		<spring.cloud.alibaba.sentinel.version>2.2.5.RELEASE</spring.cloud.alibaba.sentinel.version>
+		<sentinel.core.version>1.7.2</sentinel.core.version>
+		<sentinel.datasource.nacos.version>1.7.2</sentinel.datasource.nacos.version>
+		<sentinel.datasource.extension.version>1.7.2</sentinel.datasource.extension.version>
+		<sentinel.annotation.aspectj.version>1.7.2</sentinel.annotation.aspectj.version>
+		<sentinel.transport.simple.http.version>1.7.2</sentinel.transport.simple.http.version>
 		<druid.version>1.1.20</druid.version>
 		<commons.io.version>2.6</commons.io.version>
 		<commons.lang.version>2.6</commons.lang.version>
@@ -326,6 +334,15 @@
 				<version>${spring.cloud.hystrix.version}</version>
 			</dependency>
 
+			<!-- SpringCloudAlibaba依赖包 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring.cloud.alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 			<!-- Nacos依赖包 -->
 			<dependency>
 				<groupId>com.alibaba.cloud</groupId>
@@ -337,6 +354,75 @@
 				<groupId>com.alibaba.cloud</groupId>
 				<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 				<version>${spring.cloud.alibaba.nacos.version}</version>
+			</dependency>
+
+			<!-- Sentinel依赖包 -->
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+				<version>${spring.cloud.alibaba.sentinel.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-sentinel-datasource</artifactId>
+				<version>${spring.cloud.alibaba.sentinel.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+				<version>${spring.cloud.alibaba.sentinel.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-core</artifactId>
+				<version>${sentinel.core.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-datasource-nacos</artifactId>
+				<version>${sentinel.datasource.nacos.version}</version>
+				<!--
+				<exclusions>
+					<exclusion>
+						<groupId>com.alibaba.csp</groupId>
+						<artifactId>sentinel-core</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.alibaba.nacos</groupId>
+						<artifactId>nacos-client</artifactId>
+					</exclusion>
+				</exclusions>
+				-->
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-datasource-extension</artifactId>
+				<version>${sentinel.datasource.extension.version}</version>
+				<!--
+				<exclusions>
+					<exclusion>
+						<groupId>com.alibaba.csp</groupId>
+						<artifactId>sentinel-core</artifactId>
+					</exclusion>
+				</exclusions>
+				-->
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-annotation-aspectj</artifactId>
+				<version>${sentinel.annotation.aspectj.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba.csp</groupId>
+				<artifactId>sentinel-transport-simple-http</artifactId>
+				<version>${sentinel.transport.simple.http.version}</version>
 			</dependency>
 
 			<!--Commons IO依赖包 -->

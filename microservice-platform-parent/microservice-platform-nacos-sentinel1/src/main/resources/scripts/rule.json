@@ -1,0 +1,11 @@
+[
+    {
+        "resource":"/user/tmp3",
+        "limitAPP":"default",
+        "grade":1,
+        "count":1,
+        "strategy":0,
+        "controlBehavior":0,
+        "clusterMode":false
+    }
+]
