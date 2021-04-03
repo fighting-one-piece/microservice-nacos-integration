@@ -2,6 +2,7 @@ package org.platform.modules.bootstrap.config;
 
 import feign.*;
 import feign.Retryer.Default;
+import feign.hystrix.HystrixFeign;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,7 @@ public class FeignConfiguration {
 	@Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {
-        return Feign.builder();
+		return HystrixFeign.builder();
     }
 	
 	@Bean

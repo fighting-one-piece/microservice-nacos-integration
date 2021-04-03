@@ -7,12 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RefreshScope
 @RestController
 public class UserController {
 
@@ -41,19 +39,30 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/api/v1/user/tmp2", method = RequestMethod.GET)
-	@SentinelResource(value = "/user/tmp2", blockHandler = "useBlockHandler", blockHandlerClass = {UserSentinelExceptionHandler.class})
-//	@SentinelResource(value = "/user/tmp2", blockHandler = "useBlockHandler", blockHandlerClass = UserSentinelExceptionHandler.class,
-//		fallback = "useFallbackHandler", defaultFallback = "useDefaultFallbackHandler", fallbackClass = UserSentinelExceptionHandler.class)
+	@SentinelResource(value = "/user/tmp2", blockHandler = "useBlockHandler", blockHandlerClass = UserSentinelExceptionHandler.class,
+		fallback = "useFallbackHandler", fallbackClass = UserSentinelExceptionHandler.class)
 	public Object readUserTmp2(String account, String password) {
 		System.out.println(String.format("sentienl user tmp2 account:%s password:%s", account, password));
-//		System.out.println(1/0);
-		return userRemoteService.readUser(account, password);
+		System.out.println(1/0);
+		return String.format("sentienl user tmp2 account:%s password:%s", account, password);
 	}
 
 	@RequestMapping(value = "/api/v1/user/tmp3", method = RequestMethod.GET)
+	@SentinelResource(value = "/user/tmp3", blockHandler = "useBlockHandler", blockHandlerClass = UserSentinelExceptionHandler.class,
+		defaultFallback = "useDefaultFallbackHandler", fallbackClass = UserSentinelExceptionHandler.class)
 	public Object readUserTmp3(String account, String password) {
 		System.out.println(String.format("sentienl user tmp3 account:%s password:%s", account, password));
+		System.out.println(1/0);
 		return String.format("sentienl user tmp3 account:%s password:%s", account, password);
+	}
+
+	@RequestMapping(value = "/api/v1/user/tmp4", method = RequestMethod.GET)
+	@SentinelResource(value = "/user/tmp4", blockHandler = "useBlockHandler", blockHandlerClass = UserSentinelExceptionHandler.class,
+		fallback = "useFallbackHandler", fallbackClass = UserSentinelExceptionHandler.class)
+	public Object readUserTmp4(String account, String password) {
+		System.out.println(String.format("sentienl user tmp4 account:%s password:%s", account, password));
+		System.out.println(1/0);
+		return userRemoteService.readUser(account, password);
 	}
 
 }

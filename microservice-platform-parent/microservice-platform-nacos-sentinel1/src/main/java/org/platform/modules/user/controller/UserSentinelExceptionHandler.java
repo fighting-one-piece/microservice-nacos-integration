@@ -10,17 +10,17 @@ public class UserSentinelExceptionHandler {
 
     public static Object useBlockHandler(String account, String password, BlockException be) {
         LOG.error(String.format("BlockHandler：%s %s %s", account, password, be.getMessage()), be);
-        return String.format("BlockHandler：%s %s", account, password);
+        return String.format("BlockHandler：%s %s %s", account, password, be.getMessage());
     }
 
-    public Object useFallbackHandler(String account, String password, Throwable e) {
+    public static Object useFallbackHandler(String account, String password, Throwable e) {
         LOG.error(String.format("FallbackHandler：%s %s %s", account, password, e.getMessage()), e);
-        return String.format("FallbackHandler：%s %s", account, password);
+        return String.format("FallbackHandler：%s %s %s", account, password, e.getMessage());
     }
 
-    public Object useDefaultFallbackHandler(String account, String password, Throwable e) {
-        LOG.error(String.format("DefaultFallbackHandler：%s %s %s", account, password, e.getMessage()), e);
-        return String.format("DefaultFallbackHandler：%s %s", account, password);
+    public static Object useDefaultFallbackHandler(Throwable e) {
+        LOG.error(String.format("DefaultFallbackHandler：%s", e.getMessage()), e);
+        return String.format("DefaultFallbackHandler %s", e.getMessage());
     }
 
 }
